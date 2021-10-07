@@ -18,6 +18,10 @@ class MyApp extends StatelessWidget {
       title: 'DBestech',
       theme: ThemeData(primarySwatch: Colors.deepOrange),
       home: HomePage(),
+      getPages: [
+        GetPage(name: '/course-page', page: () => PageThree()),
+        GetPage(name: '/more-age/:data', page: () => PageThree()),
+      ],
     );
   }
 }
@@ -26,36 +30,36 @@ class MyApp extends StatelessWidget {
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return
-      Scaffold(
+    return Scaffold(
       body: Container(
         child: Column(
           children: [
             Container(
-                height: 200,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(40),
-                    ),
-                    gradient: LinearGradient(
-                      colors: [Colors.grey.shade900, Colors.grey.shade600, Colors.grey.shade900],
-                    )
-                ),
-
-                child: Center(
-                  child: Text(
-                    "GetX",
-                    style: TextStyle(
-                      fontSize: 50,
-                      color:Colors.white
-                    ),
+              height: 200,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(40),
                   ),
+                  gradient: LinearGradient(
+                    colors: [
+                      Colors.grey.shade900,
+                      Colors.grey.shade600,
+                      Colors.grey.shade900
+                    ],
+                  )),
+              child: Center(
+                child: Text(
+                  "GetX",
+                  style: TextStyle(fontSize: 50, color: Colors.white),
                 ),
               ),
-            SizedBox(height: 50,),
+            ),
+            SizedBox(
+              height: 50,
+            ),
             Center(
-                child : Container(
-                    width: MediaQuery.of(context).size.width-20,
+                child: Container(
+                    width: MediaQuery.of(context).size.width - 20,
                     padding: EdgeInsets.all(10.0),
                     child: TextField(
                       autocorrect: true,
@@ -72,116 +76,124 @@ class HomePage extends StatelessWidget {
                           borderRadius: BorderRadius.all(Radius.circular(50.0)),
                           borderSide: BorderSide(color: Colors.grey.shade100),
                         ),
-                      ),)
-                )),
-            SizedBox(height: 50,),
+                      ),
+                    ))),
+            SizedBox(
+              height: 50,
+            ),
             //GetX start from here
             RichText(
-              text: TextSpan(
-                      text: 'First GetX',
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = ()=> null,
-                      style: TextStyle(
-                        color: Colors.grey.shade600,
-                        fontSize: 30
-                      ))
+                text: TextSpan(
+                    text: 'First GetX',
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () => Get.to(() => PageOne()),
+                    style:
+                        TextStyle(color: Colors.grey.shade600, fontSize: 30))),
+            SizedBox(
+              height: 10,
             ),
-            SizedBox(height: 10,),
             //Explore GetX
             RichText(
-                text:TextSpan(
+                text: TextSpan(
                     text: 'Explore GetX',
                     recognizer: TapGestureRecognizer()
-                      ..onTap = ()=> null,
-                    style: TextStyle(
-                        color: Colors.grey.shade600,
-                        fontSize: 30
-                    )
-                )
+                      ..onTap = () => Get.to(
+                            () => PageTwo(),
+                            arguments: {
+                              'price': Random().nextInt(10000).toString(),
+                              'text': 'The course price is USD',
+                            },
+                          ),
+                    style:
+                        TextStyle(color: Colors.grey.shade600, fontSize: 30))),
+            SizedBox(
+              height: 50,
             ),
-            SizedBox(height: 50,),
             Divider(),
-            SizedBox(height: 30,),
-            Text('Navigate named routes',
-            style: TextStyle(
-              fontSize: 30
+            SizedBox(
+              height: 30,
             ),
+            Text(
+              'Navigate named routes',
+              style: TextStyle(fontSize: 30),
             ),
-            SizedBox(height: 30,),
+            SizedBox(
+              height: 30,
+            ),
             //last two routes/bottons
-            Expanded(child:Container(
+            Expanded(
+                child: Container(
               height: 300,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(50),
                 ),
-                  gradient:LinearGradient(
-                      colors:[Colors.grey, Colors.black, Colors.grey]
-                  ),
+                gradient: LinearGradient(
+                    colors: [Colors.grey, Colors.black, Colors.grey]),
               ),
               child: Container(
                 padding: const EdgeInsets.only(left: 20, right: 20),
                 child: Row(
                   children: [
-                    Expanded(child:Container(
+                    Expanded(
+                      child: Container(
+                        width: 200,
+                        height: 70,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            elevation: 0,
+                            primary: Colors.grey.shade300,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                          ),
+                          onPressed: () => Get.toNamed(
+                            '/course-page',
+                            arguments: {
+                              'price': Random().nextInt(10000).toString(),
+                            },
+                          ),
+                          child: Text(
+                            "Course",
+                            style: TextStyle(
+                                fontSize: 20, color: Colors.grey.shade900),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Expanded(
+                        child: Container(
                       width: 200,
                       height: 70,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
+                          borderRadius: BorderRadius.circular(20),
+                          color: Color(0xFffbc33e)),
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           elevation: 0,
                           primary: Colors.grey.shade300,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20.0),
-                          ),),
-                        onPressed: () => null,
-                        child: Text(
-                          "Course",
-                          style: TextStyle(
-                              fontSize: 20,
-                              color:Colors.grey.shade900
                           ),
                         ),
+                        onPressed: () => null,
+                        child: Text(
+                          "More",
+                          style: TextStyle(
+                              fontSize: 20, color: Colors.grey.shade900),
+                        ),
                       ),
-
-                    ),
-                    ),
-                    SizedBox(width: 10,),
-                    Expanded(
-                        child:Container(
-                          width: 200,
-                          height: 70,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Color(0xFffbc33e)
-                          ),
-
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              elevation: 0,
-                              primary: Colors.grey.shade300,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20.0),
-                              ),),
-                            onPressed: () => null,
-                            child: Text(
-                              "More",
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  color:Colors.grey.shade900
-                              ),
-                            ),
-                          ),
-
-                        )
-                    )
+                    ))
                   ],
                 ),
               ),
-            )
-            )
+            ))
           ],
         ),
       ),
@@ -194,31 +206,28 @@ class PageOne extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:   Center(
+      body: Center(
         child: Container(
           width: 200,
           height: 70,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              color: Color(0xFffbc33e)
-          ),
+              color: Color(0xFffbc33e)),
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
               elevation: 0,
               primary: Colors.grey.shade300,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20.0),
-              ),),
-            onPressed: () => null,
-            child: Text(
-              "Home",
-              style: TextStyle(
-                  fontSize: 20,
-                  color:Colors.grey.shade900
               ),
             ),
+            // onPressed: () => Get.back(),
+            onPressed: () => Get.off(() => HomePage()),
+            child: Text(
+              "Home",
+              style: TextStyle(fontSize: 20, color: Colors.grey.shade900),
+            ),
           ),
-
         ),
       ),
     );
@@ -238,17 +247,27 @@ class PageTwo extends StatelessWidget {
           color: Colors.grey.shade900, //change your color here
         ),
       ),
-      body:
-        Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-
-            ],
-
-          ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              Get.arguments['text'] ?? 'Nothing to show',
+              style: TextStyle(
+                fontSize: 30,
+                color: Colors.grey.shade600,
+              ),
+            ),
+            Text(
+              Get.arguments['price'] ?? 'Exploration Page',
+              style: TextStyle(
+                fontSize: 26,
+                color: Colors.grey.shade600,
+              ),
+            ),
+          ],
         ),
-
+      ),
     );
   }
 }
@@ -261,18 +280,16 @@ class PageThree extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
-        iconTheme: IconThemeData(
-          color:Colors.black26
+        iconTheme: IconThemeData(color: Colors.black26),
+        title: Text(
+          'Course Page',
+          style: TextStyle(fontSize: 30, color: Colors.grey),
         ),
-        title: Text('Course Page', style: TextStyle(
-          fontSize: 30,
-          color:Colors.grey
-        ),),
       ),
       body: Center(
         child: Text(
-          "Course price is USD ",
-          style: TextStyle(fontSize: 30, color:Colors.grey.shade600),
+          "Course price is USD " + Get.arguments['price'] ?? '0',
+          style: TextStyle(fontSize: 30, color: Colors.grey.shade600),
         ),
       ),
     );
@@ -289,7 +306,6 @@ class PageFour extends StatelessWidget {
         elevation: 0,
         iconTheme: IconThemeData(
           color: Colors.black26,
-
         ),
         title: Text('Page Four'),
       ),
@@ -297,64 +313,54 @@ class PageFour extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-
-           ElevatedButton(
-             style: ElevatedButton.styleFrom(
-               elevation: 0,
-               primary: Colors.transparent,
-             ),
-             onPressed: () => null,
-             child: Text(
-              "Go to another page",
-              style: TextStyle(fontSize: 40, color:Colors.grey),
-          ),
-           ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                elevation: 0,
+                primary: Colors.transparent,
+              ),
+              onPressed: () => null,
+              child: Text(
+                "Go to another page",
+                style: TextStyle(fontSize: 40, color: Colors.grey),
+              ),
+            ),
             Divider(),
             Text(
-             'Page Four',
-            style: TextStyle(fontSize: 30),
-          ),
+              'Page Four',
+              style: TextStyle(fontSize: 30),
+            ),
           ],
         ),
       ),
     );
   }
 }
+
 class PageFive extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child:Container(
-          width: 200,
-          height: 70,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: Color(0xFffbc33e)
-          ),
-
-
-          child: ElevatedButton(
-
-            style: ElevatedButton.styleFrom(
-              elevation: 0,
-              primary: Colors.grey.shade300,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20.0),
-              ),),
-            onPressed: () => null,
-            child: Text(
-              "Home",
-              style: TextStyle(
-                  fontSize: 20,
-                  color:Colors.grey.shade900
-              ),
+          child: Container(
+        width: 200,
+        height: 70,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20), color: Color(0xFffbc33e)),
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            elevation: 0,
+            primary: Colors.grey.shade300,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20.0),
             ),
           ),
-
-        )
-
-      ),
+          onPressed: () => null,
+          child: Text(
+            "Home",
+            style: TextStyle(fontSize: 20, color: Colors.grey.shade900),
+          ),
+        ),
+      )),
     );
   }
 }
