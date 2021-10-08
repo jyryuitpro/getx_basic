@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       home: HomePage(),
       getPages: [
         GetPage(name: '/course-page', page: () => PageThree()),
-        GetPage(name: '/more-age/:data', page: () => PageThree()),
+        GetPage(name: '/more-page/:data', page: () => PageFour()),
       ],
     );
   }
@@ -182,7 +182,7 @@ class HomePage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(20.0),
                           ),
                         ),
-                        onPressed: () => null,
+                        onPressed: () => Get.toNamed('/more-page/${Random().nextInt(10000)}'),
                         child: Text(
                           "More",
                           style: TextStyle(
@@ -318,15 +318,15 @@ class PageFour extends StatelessWidget {
                 elevation: 0,
                 primary: Colors.transparent,
               ),
-              onPressed: () => null,
+              onPressed: () => Get.to(() => PageFive()),
               child: Text(
-                "Go to another page",
+                "Get to ",
                 style: TextStyle(fontSize: 40, color: Colors.grey),
               ),
             ),
             Divider(),
             Text(
-              'Page Four',
+              'Page Four ' + Get.parameters['data'],
               style: TextStyle(fontSize: 30),
             ),
           ],
@@ -340,6 +340,9 @@ class PageFive extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Page Five'),
+      ),
       body: Center(
           child: Container(
         width: 200,
@@ -354,7 +357,7 @@ class PageFive extends StatelessWidget {
               borderRadius: BorderRadius.circular(20.0),
             ),
           ),
-          onPressed: () => null,
+          onPressed: () => Get.to(() => HomePage()),
           child: Text(
             "Home",
             style: TextStyle(fontSize: 20, color: Colors.grey.shade900),
